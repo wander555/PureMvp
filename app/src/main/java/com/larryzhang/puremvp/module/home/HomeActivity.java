@@ -41,7 +41,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.IHomeView
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        ButterKnife.bind(this);
         initNaviLayout();
     }
 

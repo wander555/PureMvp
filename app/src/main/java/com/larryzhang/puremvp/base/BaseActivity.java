@@ -56,6 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BGASwipe
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
+        ButterKnife.bind(this);
     }
 
     public CompositeSubscription getCompositeSubscription(){
