@@ -2,11 +2,11 @@
 自己整合的一套MVP框架
 
 ## Functionality & Libraries
-[`retrofit2`]
-[`rxjava`]
-[`butterknife`]
-[`Toasty`]
-[`androideventbus`]
-[`mkloader`]
-[`logutils`]
-[`cockroach`]
+1.`retrofit2`
+2.`rxjava`
+3.`butterknife`
+4.`Toasty`
+5.`androideventbus`
+6.`mkloader`
+7.`logutils`
+8.`cockroach`
