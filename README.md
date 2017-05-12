@@ -1,7 +1,7 @@
 # PureMvp
 自己整合的一套MVP框架
 
-## Functionality & Libraries
+# Functionality & Libraries
 1.`retrofit2`
 2.`rxjava`
 3.`butterknife`
