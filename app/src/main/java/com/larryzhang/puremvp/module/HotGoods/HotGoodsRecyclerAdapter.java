@@ -37,7 +37,7 @@ class HotGoodsRecyclerAdapter extends CommonRecyclerAdapter<Goods> implements Li
                     .error(R.mipmap.image_default)
                     .into(imageView);
 
-            holder.setTextViewText(R.id.content, goods.getContent());
+            holder.setTextViewText(R.id.content, goods.getTitle());
             holder.setOnClickListener(this, R.id.cardView);
         }
     }

@@ -1,6 +1,5 @@
 package com.larryzhang.puremvp.module.HotGoods;
 
-import com.apkfuns.logutils.LogUtils;
 import com.larryzhang.puremvp.model.ResultGoods;
 import com.larryzhang.puremvp.net.NetWork;
 

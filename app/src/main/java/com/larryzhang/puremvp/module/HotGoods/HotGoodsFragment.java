@@ -2,10 +2,12 @@ package com.larryzhang.puremvp.module.HotGoods;
 
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.larryzhang.puremvp.R;
 import com.larryzhang.puremvp.base.BaseFragment;
 import com.larryzhang.puremvp.model.Goods;
+import com.larryzhang.puremvp.widget.RecyclerViewDivider;
 import com.larryzhang.puremvp.widget.RecyclerViewWithFooter.OnLoadMoreListener;
 import com.larryzhang.puremvp.widget.RecyclerViewWithFooter.RecyclerViewWithFooter;
 
@@ -43,7 +45,15 @@ public class HotGoodsFragment extends BaseFragment implements HotGoodsContract.I
     protected void init() {
         //初始化
         iHotGoodsPresenter = new HotGoodsPresenter(this);
-        mAdapter = new HotGoodsRecyclerAdapter(getContext());
+        mAdapter = new HotGoodsRecyclerAdapter(getActivity());
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addItemDecoration(new RecyclerViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL));
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setOnLoadMoreListener(this);
+        recyclerView.setEmpty();
+
         iHotGoodsPresenter.subscribe();
     }
 
@@ -82,7 +92,7 @@ public class HotGoodsFragment extends BaseFragment implements HotGoodsContract.I
 
     @Override
     public void hideSwipeLoading() {
-        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

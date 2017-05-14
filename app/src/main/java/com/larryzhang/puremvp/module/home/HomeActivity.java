@@ -44,7 +44,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.IHomeView
     private void initNaviLayout() {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        // transaction.setCustomAnimations(R.anim.push_up_in,R.anim.push_up_out);
+//         transaction.setCustomAnimations(R.anim.push_up_in,R.anim.push_up_out);
         transaction.add(R.id.content, new HotGoodsFragment());
         transaction.commit();
 
