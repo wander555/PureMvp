@@ -3,22 +3,20 @@ package com.larryzhang.puremvp.module.home;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.larryzhang.puremvp.R;
 import com.larryzhang.puremvp.base.BaseActivity;
+import com.larryzhang.puremvp.module.HotGoods.HotGoodsFragment;
 import com.larryzhang.puremvp.utils.ToastyUtil;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseActivity implements HomeContract.IHomeView {
 
-    @Bind(R.id.message)
-    TextView mTextMessage;
     @Bind(R.id.content)
     FrameLayout content;
     @Bind(R.id.navigation)
@@ -36,7 +34,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.IHomeView
     @Override
     protected void beforeInit() {
         super.beforeInit();
-//        StatusBarUtil.setTranslucent(this);
     }
 
     @Override
@@ -45,18 +42,21 @@ public class HomeActivity extends BaseActivity implements HomeContract.IHomeView
     }
 
     private void initNaviLayout() {
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        // transaction.setCustomAnimations(R.anim.push_up_in,R.anim.push_up_out);
+        transaction.add(R.id.content, new HotGoodsFragment());
+        transaction.commit();
+
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
-                        mTextMessage.setText("主页");
                         return true;
                     case R.id.navigation_dashboard:
-                        mTextMessage.setText("菜单");
                         return true;
                     case R.id.navigation_notifications:
-                        mTextMessage.setText("通知");
                         return true;
                 }
                 return false;
@@ -80,10 +80,4 @@ public class HomeActivity extends BaseActivity implements HomeContract.IHomeView
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

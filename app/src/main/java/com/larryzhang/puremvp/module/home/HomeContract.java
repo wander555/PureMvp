@@ -5,7 +5,6 @@ import com.larryzhang.puremvp.base.BaseView;
 
 /**
  * File description.
- *
  * @author zhangqiang
  * @date 2017/5/12
  */
