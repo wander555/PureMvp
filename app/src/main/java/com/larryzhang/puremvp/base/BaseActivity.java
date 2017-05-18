@@ -5,16 +5,14 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.IntRange;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-
-import com.apkfuns.logutils.LogUtils;
 import com.larryzhang.puremvp.R;
 import com.larryzhang.puremvp.utils.StatusBarUtil;
 
 import butterknife.ButterKnife;
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
+import me.yokeyword.fragmentation.SupportActivity;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
@@ -26,7 +24,7 @@ import rx.subscriptions.CompositeSubscription;
  * Date: 2017-04-07  14:33
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements BGASwipeBackHelper.Delegate{
+public abstract class BaseActivity extends SupportActivity implements BGASwipeBackHelper.Delegate{
 
     private CompositeSubscription mCompositeSubscription;
 
@@ -160,15 +158,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BGASwipe
     @Override
     public void onSwipeBackLayoutExecuted() {
         mSwipeBackHelper.swipeBackward();
-    }
-
-    @Override
-    public void onBackPressed() {
-        // 正在滑动返回的时候取消返回按钮事件
-        if (mSwipeBackHelper.isSliding()) {
-            return;
-        }
-        mSwipeBackHelper.backward();
     }
 
 

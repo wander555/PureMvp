@@ -3,7 +3,6 @@ package com.larryzhang.puremvp.module.home;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -11,9 +10,10 @@ import android.widget.LinearLayout;
 import com.larryzhang.puremvp.R;
 import com.larryzhang.puremvp.base.BaseActivity;
 import com.larryzhang.puremvp.module.HotGoods.HotGoodsFragment;
-import com.larryzhang.puremvp.utils.ToastyUtil;
+import com.larryzhang.puremvp.module.NewGoods.NewGoodsFragment;
 
 import butterknife.Bind;
+import me.yokeyword.fragmentation.SupportFragment;
 
 public class HomeActivity extends BaseActivity implements HomeContract.IHomeView {
 
@@ -25,6 +25,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.IHomeView
     LinearLayout container;
     private long mExitTime = 0;
 
+    private SupportFragment[] mFragments = new SupportFragment[3];
 
     @Override
     protected int getContentViewLayoutID() {
@@ -39,27 +40,45 @@ public class HomeActivity extends BaseActivity implements HomeContract.IHomeView
     @Override
     protected void initView(Bundle savedInstanceState) {
         initNaviLayout();
+        if (savedInstanceState == null) {
+            mFragments[0] = HotGoodsFragment.newInstance();
+            mFragments[1] = NewGoodsFragment.newInstance();
+//            mFragments[2] = MultiThirdFragment.newInstance();
+            loadMultipleRootFragment(R.id.content, 0,
+                    mFragments[0],
+                    mFragments[1]);
+        } else {
+            mFragments[0] = findFragment(HotGoodsFragment.class);
+            mFragments[1] = findFragment(NewGoodsFragment.class);
+        }
     }
 
     private void initNaviLayout() {
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//         transaction.setCustomAnimations(R.anim.push_up_in,R.anim.push_up_out);
-        transaction.add(R.id.content, new HotGoodsFragment());
-        transaction.commit();
+        loadRootFragment(R.id.content, HotGoodsFragment.newInstance());  // 加载根Fragment\
 
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
-                        return true;
+                        showHideFragment(mFragments[0], getTopFragment());
                     case R.id.navigation_dashboard:
-                        return true;
+                        showHideFragment(mFragments[1], getTopFragment());
                     case R.id.navigation_notifications:
-                        return true;
+                        showHideFragment(mFragments[1], getTopFragment());
                 }
                 return false;
+            }
+        });
+
+        navigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener(){
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                    case R.id.navigation_dashboard:
+                    case R.id.navigation_notifications:
+                }
             }
         });
     }
@@ -69,15 +88,4 @@ public class HomeActivity extends BaseActivity implements HomeContract.IHomeView
     public boolean isSupportSwipeBack() {
         return false;
     }
-
-    @Override
-    public void onBackPressed() {
-        if ((System.currentTimeMillis() - mExitTime) > 2000) {
-            ToastyUtil.showSuccess("再按一次退出程序哦");
-            mExitTime = System.currentTimeMillis();
-        } else {
-            finish();
-        }
-    }
-
 }

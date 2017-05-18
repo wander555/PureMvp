@@ -10,6 +10,7 @@ import com.larryzhang.puremvp.utils.Utils;
 import com.wanjian.cockroach.Cockroach;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackManager;
+import me.yokeyword.fragmentation.Fragmentation;
 
 /**
  * 应用程序
@@ -49,6 +50,11 @@ public class App extends Application {
         BGASwipeBackManager.getInstance().init(this);
 //        ConfigManage.INSTANCE.initConfig(this);
         INSTANCE = this;
+
+        Fragmentation.builder()
+                // 显示悬浮球 ; 其他Mode:SHAKE: 摇一摇唤出   NONE：隐藏
+                .stackViewMode(Fragmentation.BUBBLE)
+                .install();
         Utils.init(this);
     }
 }

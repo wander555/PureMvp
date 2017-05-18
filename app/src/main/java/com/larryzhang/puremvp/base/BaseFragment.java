@@ -2,12 +2,12 @@ package com.larryzhang.puremvp.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import me.yokeyword.fragmentation.SupportFragment;
 //import butterknife.Unbinder;
 
 /**
@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
  * Date: 2017-04-14  9:47
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends SupportFragment {
 
 //    private Unbinder unbinder;
 

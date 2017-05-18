@@ -1,4 +1,4 @@
-package com.larryzhang.puremvp.module.HotGoods;
+package com.larryzhang.puremvp.module.NewGoods;
 
 import com.larryzhang.puremvp.model.ResultGoods;
 import com.larryzhang.puremvp.net.NetWork;
@@ -12,24 +12,24 @@ import rx.schedulers.Schedulers;
  * File description.
  *
  * @author zhangqiang
- * @date 2017/5/13
+ * @date 2017/5/18
  */
 
-public class HotGoodsPresenter implements HotGoodsContract.IHotGoodsPresenter {
+public class NewGoodsPresenter implements NewGoodsContract.INewGoodsPresenter {
 
-    private HotGoodsContract.IHotGoodsView hotGoodsView;
+    private NewGoodsContract.INewGoodsView newGoodsView;
     private Subscription mSubscription;
     private int mPage = 1;
 
-
     //同view层绑定
-    public HotGoodsPresenter(HotGoodsContract.IHotGoodsView androidhotGoodsView) {
-        hotGoodsView = androidhotGoodsView;
+    public NewGoodsPresenter(NewGoodsContract.INewGoodsView androidNewGoodsView) {
+        newGoodsView = androidNewGoodsView;
     }
+
 
     @Override
     public void subscribe() {
-        getHotGoods(true);
+        getNewGoods(true);
     }
 
     @Override
@@ -39,18 +39,16 @@ public class HotGoodsPresenter implements HotGoodsContract.IHotGoodsPresenter {
         }
     }
 
-
-    //用rxjava获取数据
     @Override
-    public void getHotGoods(final boolean isRefresh) {
+    public void getNewGoods(final boolean isRefresh) {
         if (isRefresh) {
             mPage = 1;
-            hotGoodsView.showSwipeLoading();
+            newGoodsView.showSwipeLoading();
         } else {
             mPage++;
         }
         mSubscription = NetWork.getGoodsApi()
-                .getHotGoods("11", "20", String.valueOf(mPage))
+                .getHotGoods("12", "20", String.valueOf(mPage))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ResultGoods>() {
@@ -59,20 +57,19 @@ public class HotGoodsPresenter implements HotGoodsContract.IHotGoodsPresenter {
                     }
                     @Override
                     public void onError(Throwable e) {
-                        hotGoodsView.hideSwipeLoading();
-                        hotGoodsView.getHotGoodsFail(" 列表数据获取失败！");
+                        newGoodsView.hideSwipeLoading();
+                        newGoodsView.getNewGoodsFailed(" 列表数据获取失败！");
                     }
                     @Override
                     public void onNext(ResultGoods resultGoods) {
                         if (isRefresh) {
-                            hotGoodsView.setHotGoods(resultGoods.getRf().getItems());
-                            hotGoodsView.hideSwipeLoading();
-                            hotGoodsView.setLoading();
+                            newGoodsView.setNewGoods(resultGoods.getRf().getItems());
+                            newGoodsView.hideSwipeLoading();
+                            newGoodsView.setLoading();
                         } else {
-                            hotGoodsView.addHotGoods(resultGoods.getRf().getItems());
+                            newGoodsView.addNewGoods(resultGoods.getRf().getItems());
                         }
                     }
                 });
-
     }
 }

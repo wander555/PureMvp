@@ -46,5 +46,7 @@ dependencies {
     compile 'com.wanjian:cockroach:0.0.5'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.florent37:fiftyshadesof:1.0.0'
+    compile 'me.yokeyword:fragmentation:0.10.5'
     testCompile 'junit:junit:4.12'
 }
